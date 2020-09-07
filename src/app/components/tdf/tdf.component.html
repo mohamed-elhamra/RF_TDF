@@ -1,0 +1,138 @@
+<form #form="ngForm" (submit)="onSubmit(form.value)">
+  <div class="form-group">
+    <label for="">Name</label>
+    <input
+      type="text"
+      class="form-control"
+      #name="ngModel"
+      [class.is-invalid]="name.invalid && name.touched"
+      name="name"
+      [(ngModel)]="userModel.name"
+      ngModel
+      required
+      minlength="3"
+      maxlength="15"
+    />
+    <div *ngIf="name.invalid && name.touched">
+      <div class="text-danger" *ngIf="name.errors.required">
+        Name is required
+      </div>
+      <div
+        class="text-danger"
+        *ngIf="name.errors.maxlength || name.errors.minlength"
+      >
+        Name must be between 3 and 8 characters
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">Email</label>
+    <input
+      type="text"
+      class="form-control"
+      #email="ngModel"
+      [class.is-invalid]="email.invalid && email.touched"
+      name="email"
+      [(ngModel)]="userModel.email"
+      ngModel
+      required
+      email
+    />
+    <div *ngIf="email.invalid && email.touched">
+      <div class="text-danger" *ngIf="email.errors.required">
+        Email is required
+      </div>
+      <div class="text-danger" *ngIf="email.errors.email">
+        Email format is incorrect
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">Phone</label>
+    <input
+      type="text"
+      class="form-control"
+      #phone="ngModel"
+      [class.is-invalid]="phone.invalid && phone.touched"
+      name="phone"
+      [(ngModel)]="userModel.phone"
+      ngModel
+      required
+      pattern="^\d{10}$"
+    />
+    <div *ngIf="phone.invalid && phone.touched">
+      <div class="text-danger" *ngIf="phone.errors.required">
+        Phone is required
+      </div>
+      <div class="text-danger" *ngIf="phone.errors.pattern">
+        Phone must be 10 digits
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="">Topic</label>
+    <select
+      name=""
+      id=""
+      class="custom-select"
+      #topic="ngModel"
+      name="topic"
+      [class.is-invalid]="topic.invalid && topic.touched"
+      [(ngModel)]="userModel.topic"
+      ngModel
+      required
+    >
+      <option value="" selected>I am interested in</option>
+      <option *ngFor="let topic of topics">{{ topic }}</option>
+    </select>
+    <div *ngIf="topic.invalid && topic.touched">
+      <div class="text-danger">Please choose a topic</div>
+    </div>
+  </div>
+  <div>
+    <label for="">Time preference</label>
+    <div class="form-check">
+      <input
+        type="radio"
+        #timePreference="ngModel"
+        name="timePreference"
+        id=""
+        class="form-check-input"
+        value="morning"
+        [(ngModel)]="userModel.timePreference"
+        ngModel
+        required
+      />
+      <label for="" class="from-check-label">Moring (9AM - 12PM)</label>
+    </div>
+    <div class="form-check">
+      <input
+        type="radio"
+        #timePreference="ngModel"
+        name="timePreference"
+        id=""
+        class="form-check-input"
+        value="evening"
+        [(ngModel)]="userModel.timePreference"
+        ngModel
+        required
+      />
+      <label for="" class="from-check-label">Evening (5PM - 8PM)</label>
+    </div>
+  </div>
+  <div class="form-check mt-3">
+    <input
+      type="checkbox"
+      #subscribe="ngModel"
+      name="subscribe"
+      [(ngModel)]="userModel.subscribe"
+      id=""
+      class="form-check-input"
+      ngModel
+    />
+    <label for="" class="from-check-label">Send me promotional offers</label>
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="form.invalid">
+    Submit
+  </button>
+</form>

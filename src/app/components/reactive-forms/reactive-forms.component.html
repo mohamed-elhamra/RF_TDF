@@ -1,0 +1,129 @@
+<h2>Registration Form</h2>
+<form [formGroup]="registrationForm" (submit)="onSubmit()">
+  <div class="form-group">
+    <label for="userName">Username</label>
+    <input
+      formControlName="userName"
+      type="text"
+      name="userName"
+      id="userName"
+      class="form-control"
+      [class.is-invalid]="userName.invalid && userName.touched"
+    />
+    <div *ngIf="userName.invalid && userName.touched">
+      <div *ngIf="userName.getError('required')" class="text-danger">
+        Name is required
+      </div>
+      <div
+        *ngIf="userName.getError('minlength') || userName.getError('maxlength')"
+        class="text-danger"
+      >
+        Name must be between 3 and 15 characters
+      </div>
+    </div>
+  </div>
+
+  <div class="form-gorup">
+    <label for="email">Email</label>
+    <input
+      formControlName="email"
+      type="text"
+      class="form-control"
+      id="email"
+      name="email"
+      [class.is-invalid]="email.invalid && email.touched"
+    />
+    <div *ngIf="email.invalid && email.touched">
+      <div class="text-danger" *ngIf="email.getError('required')">
+        Email is required
+      </div>
+      <div class="text-danger" *ngIf="email.errors.email">
+        Email format is incorrect
+      </div>
+    </div>
+  </div>
+
+  <div class="form-check">
+    <input
+      formControlName="subscribe"
+      type="checkbox"
+      name=""
+      id="subscribe"
+      class="form-check-input"
+    />
+    <label for="subscribe" class="form-check-label"
+      >Send me promotionals offers</label
+    >
+  </div>
+
+  <div class="form-group mt-3">
+    <label for="password">Password</label>
+    <input
+      formControlName="password"
+      type="password"
+      name="password"
+      id="password"
+      class="form-control"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="confirmPassword">Confirm password</label>
+    <input
+      formControlName="confirmPassword"
+      type="password"
+      name="confirmPassword"
+      id="confirmPassword"
+      class="form-control"
+      [class.is-invalid]="registrationForm.getError('misMatch')"
+    />
+    <div *ngIf="registrationForm.getError('misMatch')">
+      <div class="text-danger">Passwords do not match</div>
+    </div>
+  </div>
+
+  <div formGroupName="address">
+    <div class="form-group">
+      <label for="city">City</label>
+      <input
+        type="text"
+        formControlName="city"
+        name="city"
+        id=""
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="state">State</label>
+      <input
+        type="text"
+        formControlName="state"
+        name="state"
+        id="state"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="postalCode">Postal Code</label>
+      <input
+        type="text"
+        formControlName="postalCode"
+        name="postalCode"
+        id="postalCode"
+        class="form-control"
+      />
+    </div>
+  </div>
+
+  <button
+    class="btn btn-primary"
+    type="submit"
+    [disabled]="registrationForm.invalid"
+  >
+    Register
+  </button>
+
+  <button class="btn btn-secondary ml-3" type="submit" (click)="loadData()">
+    Load Data
+  </button>
+</form>
